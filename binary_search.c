@@ -40,8 +40,22 @@ int iterative_binary_search(int q, int* array, int n) {
  * free to implement a recursive "helper" function with a different signature
  * and to simply call that recursive function from this one.
  */
-int recursive_binary_search(int q, int* array, int n) {
-  return -1;
+int recursive_binary_search_help(int q, int* array, int start, int n) {
+    int mid, low = start, high = n - 1;
+    mid = (low + high)/2;
+    if(array[mid] == q){
+        return mid;
+    } else if(array[mid] > q){ 
+        return recursive_binary_search_help(q, array, low, mid);
+    } else if(array[mid] < q){
+        return recursive_binary_search_help(q, array, mid + 1, n);
+    } else if(low == high){
+        return -1;
+    }
+}
+
+int recursive_binary_search(int q, int* array,  int n){
+    return recursive_binary_search_help(q, array, 0, n);
 }
 
 /*
